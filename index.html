@@ -29,6 +29,157 @@
 </div>
 <button id="resetBTN">reset Game</button>
 </main>
-<script src="./my game_files/script.js.download"></script>
+
+<style>*{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body{
+    background-color: #548687;
+    text-align: center;
+}
+
+.container{
+    height: 70vh;
+display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   align-items: center;
+}
+
+.game{
+    height: 60vmin;
+    width: 60vmin;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   align-items: center;
+   gap: 1.5vmin;
+}
+
+.box{
+    height: 18vmin;
+    width: 18vmin;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+    font-size: 8vmin;
+    color: #b0413e ;
+}
+
+#resetBTN{
+padding: 1rem;
+font-size: 1.25rem;
+background-color: #191913;
+color: #fff;
+border-radius: 1rem;
+border: none;
+}
+
+#new-btn{
+  padding: 1rem;
+font-size: 1.25rem;
+background-color: #191913;
+color: #fff;
+border-radius: 1rem;
+border: none;  
+}
+
+#msg{
+    color: #fff;
+    font-size: 8vmin;
+}
+
+.msg-container{
+height: 40vmin;
+}
+
+.hide{
+    display: none;
+}
+
+</style>
+    
+<script>
+     let boxes = document.querySelectorAll(".box")
+let resetbtn = document.querySelector("#resetBTN")
+let newgamebtn = document.querySelector("#new-btn")
+let msgContainer = document.querySelector(".msg-container")
+let msg = document.querySelector("#msg")
+
+
+let turnO = true;
+
+const winpatterns = [
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [2, 4, 6],
+  [0, 4, 8],
+]
+
+// 
+
+
+boxes.forEach((box) => {
+  box.addEventListener("click", () => {
+    console.log("box was clicked");
+  if(turnO) {
+    box.innerText = "O";
+    turnO = false;
+  } else{
+    box.innerText = "X";
+    turnO = true;
+  }
+  box.disabled = true;
+
+   checkWinner();
+  });
+
+});
+
+const showWinner = (Winner) => {
+msg.innerHTML =`🎉✨✨🎉🎇🎆🃏, winner is master`;
+msgContainer.classList.remove("hide");
+ disabled = true;
+}
+
+const checkWinner = () => {
+ for(let pattern of winpatterns) {
+let pos1val = boxes[pattern[0]].innerText;
+ let pos2val = boxes[pattern[1]].innerText;
+ let pos3val = boxes[pattern[2]].innerText;
+
+ if(pos1val != "" && pos3val != ""){
+  if(pos1val === pos2val && pos2val === pos3val) {
+    console.log('Winner',pos1val);
+    let winsound = new Audio ('\quotyou-are-credited-with-victoryquot.mp3')
+    winsound.play();
+    showWinner(pos1val);
+  }
+ }
+  }
+
+
+}
+
+resetbtn.addEventListener('click', () => {
+  boxes.forEach((box) => {
+    box.innerText = "";
+    box.disabled = false;
+  
+  })
+    turnO = true;
+}) 
+
+newgamebtn.addEventListener('click', () =>  {
+  location.reload();
+})
+</script>
 
 </body></html>
